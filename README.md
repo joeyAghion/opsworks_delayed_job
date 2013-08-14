@@ -50,7 +50,7 @@ The layer's custom chef recipes should be associated with events as follows:
 To Do
 -----
 
-* Attributes should be better structured (allow customization without requiring all worker processes to be listed).
+* Attributes should be better structured (allowing customization without requiring all worker processes to be listed).
 * Loosen any coupling to the nginx+unicorn Rails stack.
 
 
