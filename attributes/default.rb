@@ -19,3 +19,5 @@ node[:deploy].each do |application, deploy|
   
 end
 
+# Lots of jobs use /tmp for scratch, so mount it on ephemeral partition
+default[:opsworks_initial_setup][:bind_mounts][:mounts]['/tmp'] = "#{node[:opsworks_initial_setup][:ephemeral_mount_point]}/tmp"
