@@ -1,11 +1,5 @@
 # Adapted from unicorn::rails: https://github.com/aws/opsworks-cookbooks/blob/master/unicorn/recipes/rails.rb
 
-# Correct permissions on /tmp
-directory '/tmp' do
-  action :create
-  mode '777'
-end
-
 include_recipe "opsworks_delayed_job::service"
 
 # setup delayed_job service per app
