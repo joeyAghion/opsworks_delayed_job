@@ -38,7 +38,7 @@ By default, workers will read from all queues. You can also specify custom `queu
 OpsWorks Set-Up
 ---------------
 
-The layer's custom chef recipes should be associated with events as follows:
+Create a custom layer for the delayed_job instances. Add the `AWS-OpsWorks-Rails-App-Server` security group to the layer, so that the instances have the usual cache and database access. Then, assign this cookbook's custom chef recipes to OpsWorks events as follows:
 
 * **Setup**: `opsworks_delayed_job::setup`
 * **Configure**: `opsworks_delayed_job::configure`
@@ -51,13 +51,6 @@ To Do
 -----
 
 * Attributes should be better structured (allowing customization without requiring all worker processes to be listed).
-* Loosen any coupling to the nginx+unicorn Rails stack.
 
 
-License
--------
-
-See [LICENSE](LICENSE).
-
-
-&copy; 2013 Joey Aghion, Artsy Inc.
+&copy; 2013 Joey Aghion, Artsy. [MIT License](LICENSE).
