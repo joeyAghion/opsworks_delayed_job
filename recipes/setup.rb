@@ -27,7 +27,7 @@ node[:deploy].each do |application, deploy|
     variables :user => deploy[:user]
   end
   
-  template "/etc/monit.d/delayed_job_#{application}.monitrc" do
+  template "#{node[:monit][:includes_dir]}/delayed_job_#{application}.monitrc" do
     mode 0644
     source "delayed_job.monitrc.erb"
     variables(:deploy => deploy, :application => application, :delayed_job => node[:delayed_job][application])

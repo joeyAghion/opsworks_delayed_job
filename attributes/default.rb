@@ -3,6 +3,13 @@ include_attribute "deploy"
 default[:delayed_job] = {}
 default[:delayed_job][:pool_size] = 4
 
+case node[:platform_family]
+when 'rhel', 'fedora', 'suse'
+  default[:monit][:includes_dir] = '/etc/monit.d'
+else
+  default[:monit][:includes_dir] = '/etc/monit/conf.d'
+end
+
 node[:deploy].each do |application, deploy|
   
   default[:delayed_job][application] = {}
