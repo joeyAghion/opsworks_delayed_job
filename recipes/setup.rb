@@ -2,6 +2,8 @@
 
 include_recipe "opsworks_delayed_job::service"
 
+Chef::Log.debug("opsworks_delayed_job::setup with #{node.inspect}")
+
 # setup delayed_job service per app
 node[:deploy].each do |application, deploy|
   
@@ -26,7 +28,8 @@ node[:deploy].each do |application, deploy|
     source "sudoer.erb"
     variables :user => deploy[:user]
   end
-  
+
+  Chef::Log.debug("Writing delayed_job monit template to: #{node[:monit][:includes_dir]}/delayed_job_#{application}.monitrc")
   template "#{node[:monit][:includes_dir]}/delayed_job_#{application}.monitrc" do
     mode 0644
     source "delayed_job.monitrc.erb"
