@@ -13,6 +13,7 @@ end
 node[:deploy].each do |application, deploy|
   
   default[:delayed_job][application] = {}
+  default[:delayed_job][application][:path_to_script] = 'script'
   default[:delayed_job][application][:pools] = {}
   
   # Default to node[:delayed_job][:pool_size] workers, each with empty ({}) config.
