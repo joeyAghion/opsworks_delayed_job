@@ -2,11 +2,9 @@
 
 include_recipe "opsworks_delayed_job::service"
 
-Chef::Log.debug("opsworks_delayed_job::setup with #{node.inspect}")
-
 # setup delayed_job service per app
 node[:deploy].each do |application, deploy|
-  
+
   if deploy[:application_type] != 'rails'
     Chef::Log.debug("Skipping opsworks_delayed_job::setup application #{application} as it is not a Rails app")
     next
@@ -21,7 +19,7 @@ node[:deploy].each do |application, deploy|
     group deploy[:group]
     path deploy[:deploy_to]
   end
-  
+
   # Allow deploy user to restart workers
   template "/etc/sudoers.d/#{deploy[:user]}" do
     mode 0440
@@ -29,13 +27,12 @@ node[:deploy].each do |application, deploy|
     variables :user => deploy[:user]
   end
 
-  Chef::Log.debug("Writing delayed_job monit template to: #{node[:monit][:includes_dir]}/delayed_job_#{application}.monitrc")
   template "#{node[:monit][:includes_dir]}/delayed_job_#{application}.monitrc" do
     mode 0644
     source "delayed_job.monitrc.erb"
     variables(:deploy => deploy, :application => application, :delayed_job => node[:delayed_job][application])
-    
+
     notifies :reload, resources(:service => "monit"), :immediately
   end
-  
+
 end
