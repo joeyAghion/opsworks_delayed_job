@@ -13,6 +13,12 @@ By default, **4** delayed_job workers will be configured. To customize this, you
       "delayed_job": { "pool_size": 6 }
     }
 
+You can provide alternate `delayed_job` script location by overriding `delayed_job.path_to_script` attribute in the stack's custom JSON. Useful for Rails 4 projects as `delayed_job` moved to `bin` from `script`:
+
+    {
+      "delayed_job": { "pool_size": 3, "path_to_script": "bin" }
+    }
+
 By default, workers will read from all queues. You can also specify custom `queues` parameters by adding attributes corresponding to each instance name and worker process. A special `default` pool can be specified to supply configuration for instances that don't otherwise appear in the JSON:
 
     {
