@@ -30,6 +30,7 @@ node[:deploy].each do |application, deploy|
   template "#{node[:monit][:includes_dir]}/delayed_job_#{application}.monitrc" do
     mode 0644
     source "delayed_job.monitrc.erb"
+    raise node.to_json
     variables(:deploy => deploy, :application => application, :delayed_job => node[:delayed_job][application])
 
     notifies :reload, resources(:service => "monit"), :immediately
