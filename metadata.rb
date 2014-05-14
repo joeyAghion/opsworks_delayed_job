@@ -1,3 +1,4 @@
+name             "opsworks_delayed_job"
 maintainer       "Artsy"
 maintainer_email "it@artsymail.com"
 license          "MIT"
