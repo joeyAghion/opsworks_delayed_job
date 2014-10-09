@@ -26,10 +26,13 @@ node[:deploy].each do |application, deploy|
     variables(:memcached => (deploy[:memcached] || {}), :environment => deploy[:rails_env])
   end
   
-  node.set[:opsworks][:rails_stack][:restart_command] = node[:delayed_job][application][:restart_command]
-  
   opsworks_deploy do
     deploy_data deploy
     app application
   end
+
+  execute "restart delayed_job" do
+    command node[:delayed_job][application][:restart_command]
+  end
+
 end
