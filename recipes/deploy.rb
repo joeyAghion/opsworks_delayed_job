@@ -25,7 +25,9 @@ node[:deploy].each do |application, deploy|
     group deploy[:group]
     variables(:memcached => (deploy[:memcached] || {}), :environment => deploy[:rails_env])
   end
-  
+
+  node.set[:opsworks][:rails_stack][:restart_command] = ':'
+
   opsworks_deploy do
     deploy_data deploy
     app application
