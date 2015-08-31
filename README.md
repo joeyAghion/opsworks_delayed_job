@@ -13,10 +13,10 @@ By default, **4** delayed_job workers will be configured. To customize this, you
       "delayed_job": { "pool_size": 6 }
     }
 
-You can provide alternate `delayed_job` script location by overriding `delayed_job.path_to_script` attribute in the stack's custom JSON. Useful for Rails 4 projects as `delayed_job` moved to `bin` from `script`:
+Specify an alternate `delayed_job` script location by overriding the `delayed_job.path_to_script` attribute in your stack's custom JSON. The default, `bin` was added in Rails 4. For pre-Rails 4 projects, set it to `script`:
 
     {
-      "delayed_job": { "pool_size": 3, "path_to_script": "bin" }
+      "delayed_job": { "pool_size": 3, "path_to_script": "script" }
     }
 
 By default, workers will read from all queues. You can also specify custom `queues` parameters by adding attributes corresponding to each instance name and worker process. A special `default` pool can be specified to supply configuration for instances that don't otherwise appear in the JSON:
@@ -53,10 +53,16 @@ Create a custom layer for the delayed_job instances. Add the `AWS-OpsWorks-Rails
 * **Shutdown**: `opsworks_delayed_job::stop`
 
 
+Changes
+---
+
+Defaults have changed with the current release. See the [CHANGELOG](CHANGELOG.md) for details.
+
+
 To Do
 -----
 
 * Attributes should be better structured (allowing customization without requiring all worker processes to be listed).
 
 
-&copy; 2013 Joey Aghion, Artsy. [MIT License](LICENSE).
+&copy; 2013-2015 Joey Aghion, Artsy. [MIT License](LICENSE).
