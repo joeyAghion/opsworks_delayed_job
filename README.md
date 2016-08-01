@@ -19,7 +19,7 @@ Specify an alternate `delayed_job` script location by overriding the `delayed_jo
       "delayed_job": { "pool_size": 3, "path_to_script": "script" }
     }
 
-By default, workers will read from all queues. You can also specify custom `queues` parameters by adding attributes corresponding to each instance name and worker process. You can set a specific value for `--sleep-delay` seconds with a `delay` parameter. A special `default` pool can be specified to supply configuration for instances that don't otherwise appear in the JSON:
+By default, workers will read from all queues. You can also specify custom `queues` parameters by adding attributes corresponding to each instance name and worker process. You can set a specific value for `--sleep-delay` seconds with a `sleep_delay` parameter. A special `default` pool can be specified to supply configuration for instances that don't otherwise appear in the JSON:
 
     {
       "delayed_job": {
@@ -28,7 +28,7 @@ By default, workers will read from all queues. You can also specify custom `queu
             "worker1": {
               "0": { "queues": "highpriority,images" },
               "1": { "queues": "emails" },
-              "2": { "queues": "bidding", delay: 1 }
+              "2": { "queues": "bidding", "sleep_delay": 1 }
             },
             "default": {
               "0": { "queues": "emails" },
@@ -51,12 +51,6 @@ Create a custom layer for the delayed_job instances. Add the `AWS-OpsWorks-Rails
 * **Deploy**: `opsworks_delayed_job::deploy`
 * **Undeploy**: `opsworks_delayed_job::undeploy`
 * **Shutdown**: `opsworks_delayed_job::stop`
-
-
-Changes
----
-
-Defaults have changed with the current release. See the [CHANGELOG](CHANGELOG.md) for details.
 
 
 To Do
